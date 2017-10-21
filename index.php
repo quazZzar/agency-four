@@ -1,0 +1,211 @@
+<?php get_header(); ?>
+	<div class="second-section" <?php echo _go('section2_background_color') ? 'style="background: '._go('section2_background_color').';"' : ''; ?>>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					<?php if(!_go('section2_use_html_instead_texts')) : ?>
+						<h3 class="second-text">
+							<?php if(_go('section2_first_text')) : 
+								_eo('section2_first_text');
+							else : ?>
+								get instant access to our
+							<?php endif; ?>
+						</h3>
+						<h2 class="main-text" <?php echo _go('section2_second_text_color') ? 'style="color: '._go('section2_second_text_color').';"' : ''; ?>>
+							<?php if(_go('section2_second_text')) : 
+								_eo('section2_second_text');
+							else : ?>
+								INCOME PLANNING TIPS
+							<?php endif; ?>	
+						</h2>
+						<h4>
+							<?php if(_go('section2_third_text')) : 
+								_eo('section2_third_text');
+							else : ?>
+								Just enter your name and email address to download now.
+							<?php endif; ?>	
+						</h4>
+					<?php else: 
+						_eo('section2_html_texts');
+					endif; ?>
+
+				</div>
+				<div class="col-md-5">
+					<img class="img img-responsive book-img" src="<?php echo _go('section2_image_onright') ? _go('section2_image_onright') : get_template_directory_uri().'/img/retirement-planning-tips.png'; ?>">
+				</div>
+			</div>
+			<div class="row the-submit-form">
+				<?php if(!_go('section2_use_html')) : ?>
+					<div class="col-md-4">
+						<input id="subs_name" name="subs_name" type="text" class="field text medium ctaName" value="" maxlength="255" onkeyup="" required="true" placeholder="Your Name">
+					</div>
+					<div class="col-md-4">
+						<input id="subs_email" name="subs_email" type="email" spellcheck="false" class="reportField field text medium ctaEmail" value="" maxlength="255" required="true" placeholder="Email Address">
+					</div>
+					<div class="col-md-4">
+						<input <?php if(_go('global_btn_colors'))  echo 'style="background: '. _go('global_btn_colors').';"';?> id="saveForm" name="saveForm" class="reportSubmit btTxt submit" type="submit" value="Access Now!">
+					</div>
+				<?php else: 
+					_eo('section2_html_content');
+				endif; ?>
+			</div>
+		</div>
+	</div>	
+	<div class="advisor-section" style="background-image: url(<?php echo _go('section3_background_image') ? _go('section3_background_image') : get_template_directory_uri().'/img/advisor-bg.jpg'; ?>); ">
+		<div class="container-fluid">
+			<div class="row" style="margin: 0px;">
+				<div class="col-md-12 text-center">
+					<img src="<?php echo _go('section3_logo_small_image') ? _go('section3_logo_small_image') : get_template_directory_uri().'/img/logo-icon.png'; ?>">
+					<h1 class="meet-heading" <?php echo _go('section3_text_color') ? 'style="color: '._go('section3_text_color').';"' : ''; ?>>
+						<?php if(_go('section3_heading_text')) : 
+							_eo('section3_heading_text');
+						else : ?>
+							Meet Our Valuable Employees
+						<?php endif; ?>
+					</h1>
+					<p class="meet-subheading" <?php echo _go('section3_text_color') ? 'style="color: '._go('section3_text_color').';"' : ''; ?>>
+						<?php if(_go('section3_content_text')) : 
+							_eo('section3_content_text');
+						else : ?>
+							The staff of This DEMO Corp. has worked their entire careers preparing to help you have the retirment you deserve. 
+						<?php endif; ?>
+					</p>
+					<div class="advisorButton">
+						<?php if(_go('global_btn_colors')) : ?>
+							<style type="text/css">
+								.advisorButton a{
+									background-color: <?php _eo('global_btn_colors'); ?>;
+								}
+								.advisorButton a:hover {
+									background-color: #fff;
+									border: 3px solid <?php _eo('global_btn_colors'); ?>;
+									color: <?php _eo('global_btn_colors'); ?>;
+								}
+							</style>
+						<?php elseif(_go('section3_button_color')) : ?>
+							<style type="text/css">
+								.advisorButton a{
+									background-color: <?php _eo('section3_button_color'); ?>;
+								}
+								.advisorButton a:hover {
+									background-color: #fff;
+									border: 3px solid <?php _eo('section3_button_color'); ?>;
+									color: <?php _eo('section3_button_color'); ?>;
+								}
+							</style>
+						<?php endif; ?>
+						<a href="<?php echo _go('section3_button_link') ? _eo('section3_button_link') : '/team/'; ?>">
+							<?php if(_go('section3_button_text')) : 
+								_eo('section3_button_text');
+							else : ?>
+								Meet The Team
+							<?php endif; ?>	
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>	
+	<div class="fourth-section" <?php echo _go('section4_background_color') ? 'style="background: '._go('section4_background_color').';"' : ''; ?>>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h1 <?php echo _go('section4_text_color') ? 'style="color: '._go('section4_text_color').';"' : ''; ?>>
+						<?php if(_go('section4_heading_text')) : 
+							_eo('section4_heading_text');
+						else : ?>
+							We Specialize In These Financial Services
+						<?php endif; ?>
+					</h1>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div class="grid-section">
+		<div class="row">
+			<?php if(_go('global_btn_colors')) : ?>
+				<style type="text/css">
+					.grid-cover a .text p .learnMoreButton:hover {
+						background-color: <?php _eo('global_btn_colors'); ?>;
+						border: 2px solid <?php  _eo('global_btn_colors'); ?>;
+					}
+				</style>
+			<?php endif; 
+			$services_qwery = new WP_Query(
+				array(
+					'post_type' => 'services',
+					'posts_per_page' => 6,
+					'post_status' => 'publish'
+				)
+			);
+
+			if($services_qwery->have_posts()) : $i = 0;
+				while($services_qwery->have_posts()) : $services_qwery->the_post(); $i++;
+					if($services_qwery->post_count < 6 && $i == 4) break; ?>
+						<div class="grid-cover col-md-4">
+							<a href="/our-services/">
+								<span class="text">
+									<h3><?php the_title(); ?></h3>
+									<p>
+										<?php echo get_the_excerpt(); ?>
+										<br><br>
+										<span class="learnMoreButton">Learn More</span>
+									</p>
+								</span>
+							</a>
+							<span class="cover" style="background-image: url('<?php echo get_template_directory_uri().'/img/grid/IMG-' . $i . '.jpg'; ?>');"></span>
+						</div>
+				<?php endwhile;
+			endif;
+			wp_reset_query(); ?>
+		</div>
+	</div>	
+
+	<!-- <div class="section4-more">
+		<div class="container-fluid">
+			<div class="row" style="height:20px;">				
+			</div>
+		</div>
+	</div>	 -->
+	
+	<section id="map-canvas" class="map">
+		<script type="text/javascript">
+			<?php if(_go('map_latitude') && _go('map_longitude')) :
+				$map_latitude = _go('map_latitude');
+				$map_longitude = _go('map_longitude');
+			else :
+				$map_latitude = '41.698227';
+				$map_longitude = '-72.440523';
+			 endif; ?>
+			// Describe Google Maps Init Function 
+			function initialize_contact_map (customOptions) {
+				var mapOptions = {
+					zoom: 17,
+					scrollwheel: false,
+					disableDefaultUI: false,
+					center: new google.maps.LatLng( <?php echo $map_latitude ?>, <?php echo $map_longitude ?>),
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+					styles: [
+						{
+							stylers: [
+									{
+										saturation: -100
+									}
+							]
+						}
+					]
+				};
+				var contact_map = new google.maps.Map( jQuery( '#map-canvas' )[0], mapOptions ),
+					marker = new google.maps.Marker({
+					map: contact_map,
+					position: new google.maps.LatLng( <?php echo $map_latitude ?>, <?php echo $map_longitude ?> ),
+					icon: "<?php echo get_template_directory_uri().'/img/marker.png' ?>",
+				});
+			}
+
+			if( jQuery( '#map-canvas' ).length ) {
+				google.maps.event.addDomListener( window, 'load', initialize_contact_map() );
+			}
+		</script>
+	</section>	
+<?php get_footer(); ?>
