@@ -22,12 +22,12 @@
 					</div>
 				</div> 
 			<?php endif; ?>
-			<?php if(is_singular() && !is_singular( 'events' )) : ?>
+			<?php if(is_singular() && !is_singular( 'events' ) && !is_singular( 'staff' ) && !is_singular( 'services' )) : ?>
 				<div id="subPageTop" style="background-image:url(<?php echo has_post_thumbnail(get_the_ID()) ? get_the_post_thumbnail_url(get_the_ID(), 'original') : get_template_directory_uri().'/img/sub-10.jpg';  ?>);">
 					<div class="content">
 						<div class="subTopTextWrap">
 							<div class="subTopText">
-								<h1>Serving Your Retirement</h1>
+								<h1><?php the_title(); ?></h1>
 							</div>
 						</div>
 					</div>
@@ -55,6 +55,29 @@
 								<span class="event_venue">
 									<?php echo @$event_meta['event_venue']; ?>
 								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php if(is_singular('staff')) : ?>
+				<div id="subPageTop" style="background-image:url(<?php echo get_template_directory_uri().'/img/sub-10.jpg';  ?>);">
+					<div class="content">
+						<div class="subTopTextWrap">
+							<div class="subTopText">
+								<h1>Team Member</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endif; ?>
+			<?php if(is_singular('services')) : 
+				$services_meta = get_post_meta(get_the_ID(), '_services_options', true);?>
+				<div id="subPageTop" style="background-image:url(<?php echo @$services_meta['service_image'] ? @$services_meta['service_image'] : get_template_directory_uri().'/img/sub-10.jpg';  ?>);">
+					<div class="content">
+						<div class="subTopTextWrap">
+							<div class="subTopText">
+								<h1><?php the_title(); ?></h1>
 							</div>
 						</div>
 					</div>

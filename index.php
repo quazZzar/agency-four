@@ -141,7 +141,7 @@
 
 			if($services_qwery->have_posts()) : $i = 0;
 				while($services_qwery->have_posts()) : $services_qwery->the_post(); $i++;
-					if($services_qwery->post_count < 6 && $i == 4) break; ?>
+					if($services_qwery->post_count < 6 && $i >= 4) break; ?>
 						<div class="grid-cover col-md-4">
 							<a href="/our-services/">
 								<span class="text">

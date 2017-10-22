@@ -12,6 +12,7 @@ function goodies_enqueue(){
 	#Styles
 	wp_enqueue_style( 'bootstrap', get_template_directory_uri(). '/css/bootstrap.min.css', array(), false, 'all' );
 	wp_enqueue_style( 'main', get_template_directory_uri(). '/css/style.css', array(), false, 'all' );
+	wp_enqueue_style( 'fontawesome', get_template_directory_uri().'/assets/css/font-awesome.min.css', array(), false, 'all' );
 	wp_enqueue_style( 'grid', get_template_directory_uri(). '/css/grid.css', array(), false, 'all' );
 	
 	if( is_page() || is_single() ){
@@ -30,6 +31,12 @@ function goodies_enqueue(){
 	wp_localize_script( 'ajax-script', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' )));
 }
 add_action( 'wp_enqueue_scripts', 'goodies_enqueue' );
+
+function admin_side_scripts(){
+	wp_enqueue_script( 'admin-js', get_template_directory_uri().'/js/admin-side.js', array( 'jquery' ), false, true );
+}
+
+add_action( 'admin_enqueue_scripts', 'admin_side_scripts' ,99);
 
 /******************************************************************************/
 /*				      Theme Supports                             	                          */
@@ -160,6 +167,28 @@ function reg_sideb(){
 				'after_title'    => '</h4>'
 			)
 		);
+		register_sidebar(
+			array(
+				'name'           => esc_html__('Staff Sidebar', 'agency-one'),
+				'id'             => 'staff-sidebar',
+				'description'    => esc_html__('Staff post Sidebar Area', 'agency-one'),
+				'before_widget'  => '<div class="widget %2$s">',
+				'after_widget'   => '</div>',
+				'before_title'   => '<h4 class="widget-title">',
+				'after_title'    => '</h4>'
+			)
+		);
+		register_sidebar(
+			array(
+				'name'           => esc_html__('Services Sidebar', 'agency-one'),
+				'id'             => 'services-sidebar',
+				'description'    => esc_html__('Services post Sidebar Area', 'agency-one'),
+				'before_widget'  => '<div class="widget %2$s">',
+				'after_widget'   => '</div>',
+				'before_title'   => '<h4 class="widget-title">',
+				'after_title'    => '</h4>'
+			)
+		);
 	}
 }
 add_action('widgets_init','reg_sideb');
@@ -179,6 +208,9 @@ add_action( 'init', 'post_types_reg' );
 function post_types_reg() {
 	#By the way adding the image size
 	add_image_size( 'services-home', 1056, 608, array('center', 'center') );
+	add_image_size( 'staff-single', 400, 400, array('top', 'center') );
+	add_image_size( 'single-service', 400, 300, array('center', 'center') );
+	add_image_size( 'press-single', 220, 220, array('center', 'center') );
 
 	$labels = array(
 		'name'               => _x( 'Services', 'post type general name', 'agency-four' ),
@@ -204,12 +236,12 @@ function post_types_reg() {
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'services' ),
+		'rewrite'            => array( 'slug' => 'service' ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => 100,
-		'supports'           => array( 'title', 'editor', 'thumbnail' )
+		'supports'           => array( 'title', 'editor','excerpt', 'thumbnail' )
 	);
 	register_post_type( 'services', $args );
 
@@ -239,66 +271,46 @@ function post_types_reg() {
 		'query_var'          => true,
 		'rewrite'            => array( 'slug' => 'staff' ),
 		'capability_type'    => 'post',
+		'has_archive'        => false,
+		'hierarchical'       => false,
+		'menu_position'      => 100,
+		'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail' )
+	);
+	register_post_type( 'staff', $args );
+
+	$labels = array(
+		'name'               => _x( 'Press', 'post type general name', 'agency-one' ),
+		'singular_name'      => _x( 'Press', 'post type singular name', 'agency-one' ),
+		'menu_name'          => _x( 'Press', 'admin menu', 'agency-one' ),
+		'name_admin_bar'     => _x( 'Press', 'add new on admin bar', 'agency-one' ),
+		'add_new'            => _x( 'Add New', 'press', 'agency-one' ),
+		'add_new_item'       => __( 'Add New Media', 'agency-one' ),
+		'new_item'           => __( 'New Media', 'agency-one' ),
+		'edit_item'          => __( 'Edit Media', 'agency-one' ),
+		'view_item'          => __( 'View Media', 'agency-one' ),
+		'all_items'          => __( 'All Press', 'agency-one' ),
+		'search_items'       => __( 'Search Press', 'agency-one' ),
+		'parent_item_colon'  => __( 'Parent Press', 'agency-one' ),
+		'not_found'          => __( 'No Press found.', 'agency-one' ),
+		'not_found_in_trash' => __( 'No Press found in Trash.', 'agency-one' )
+	);
+	$args = array(
+		'labels'             => $labels,
+		'description'        => __( 'Description.', 'agency-one' ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'press' ),
+		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => 100,
-		'supports'           => array( 'title', 'editor', 'thumbnail' )
+		'supports' => array( 'title', 'editor', 'excerpt', 'custom-fields', 'thumbnail'  )
 	);
-	register_post_type( 'staff', $args );
-}
-
-/***********************************************************************************************/
-/* 					Excerpt filter 							   */
-/***********************************************************************************************/
-function af_excerpt_more( $more ) {
-	esc_html__(' ...', 'agency-four');
-}
-add_filter( 'excerpt_more', 'af_excerpt_more' );
-
-function custom_excerpt_length( $length ) {
-	return 40;
-}
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-
-
-function create_posttypes() {
- 
-	register_post_type( 'staff',
-		array(
-			'labels' => array(
-				'name' => __( 'Staff Members' ),
-				'singular_name' => __( 'Staff' )
-			),
-			'public' => true,
-			'has_archive' => true,
-			'rewrite' => array('slug' => 'staff'),
-			'supports' => array( 'title', 'editor', 'excerpt', 'custom-fields', 'thumbnail'  )			
-		)
-	);
-	register_post_type( 'services',
-		array(
-			'labels' => array(
-				'name' => __( 'Services' ),
-				'singular_name' => __( 'Service' )
-			),
-			'public' => true,
-			'has_archive' => true,
-			'rewrite' => array('slug' => 'services'),
-			'supports' => array( 'title', 'editor', 'excerpt', 'custom-fields', 'thumbnail'  )			
-		)
-	);	
-	register_post_type( 'media',
-		array(
-			'labels' => array(
-				'name' => __( 'In The Media' ),
-				'singular_name' => __( 'In The Media' )
-			),
-			'public' => true,
-			'has_archive' => true,
-			'rewrite' => array('slug' => 'media'),
-			'supports' => array( 'title', 'editor', 'excerpt', 'custom-fields', 'thumbnail'  )			
-		)		
-	);
+	register_post_type( 'press', $args );
+	
 	register_post_type( 'events',
 		array(
 			'labels' => array(
@@ -310,7 +322,22 @@ function create_posttypes() {
 			'rewrite' => array('slug' => 'events'),
 			'supports' => array( 'title', 'editor', 'excerpt', 'custom-fields', 'thumbnail' )
 		)		
-	);		
-	
+	);
 }
-add_action( 'init', 'create_posttypes' );
+
+/***********************************************************************************************/
+/* 					Excerpt filter 							   */
+/***********************************************************************************************/
+function af_excerpt_more( $more ) {
+	esc_html__(' ...', 'agency-four');
+}
+add_filter( 'excerpt_more', 'af_excerpt_more' );
+
+function custom_excerpt_length( $length ) {
+	if(is_page_template( 'page-media-page.php' ) || is_archive('press')){
+		return 17;
+	} else {
+		return 40;
+	}
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
