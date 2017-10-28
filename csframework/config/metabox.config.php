@@ -117,6 +117,11 @@ $options[]    = array(
 			'icon'  => 'fa fa-user',
 			'fields' => array(
 				array(
+					'id'    => 'staff_first_name',
+					'type'  => 'text',
+					'title' => 'Button First Name',
+				),
+				array(
 					'id'    => 'staff_position',
 					'type'  => 'text',
 					'title' => 'Position',

@@ -7,18 +7,10 @@
  * @
  */ 
 get_header(); ?>
-	<div class="grid-section">
-		<div class="row">
-			<?php if(_go('global_btn_colors')) : ?>
-				<style type="text/css">
-					.grid-cover a .text p .learnMoreButton:hover {
-						background-color: <?php _eo('global_btn_colors'); ?>;
-						border: 2px solid <?php  _eo('global_btn_colors'); ?>;
-					}
-				</style>
-			<?php endif; 
-
-			$services_args = array(
+	<div id="subPageCover" <?php post_class('services-page-template'); ?>>
+		<div class="container">
+			<div class="row">
+				<?php $services_args = array(
 					'post_type' => 'services',
 					'post_status' => 'publish',
 					'posts_per_page' => cs_get_option('services_number') ? cs_get_option('services_number') : 9
@@ -26,24 +18,22 @@ get_header(); ?>
 				$services_query = new WP_Query($services_args);
 
 				if($services_query->have_posts()) :
-					while($services_query->have_posts()) : $services_query->the_post();  ?>
-						<div class="grid-cover col-md-4">
-							<a href="<?php the_permalink(); ?>">
-								<span class="text">
-									<h3><?php the_title(); ?></h3>
-									<p>
-										<?php echo get_the_excerpt(); ?>
-										<br><br>
-										<span class="learnMoreButton">Learn More</span>
-									</p>
-								</span>
+					$i = 1; 
+					while($services_query->have_posts()) : $services_query->the_post(); 
+						if($services_query->post_count < 9 && $i >= 7 || $services_query->post_count < 6 && $i >= 4 ) break; ?>
+						<div class="col-sm-4">
+							<a href="<?php the_permalink(); ?>" class="caption_link">
+								<div class="service_item_archive">
+									<img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'single-service'); ?>" alt="service">
+									<div class="service_caption_title" style="<?php if(cs_get_option('services_title_color')) echo 'color: '.cs_get_option('services_title_color').'; '; if(cs_get_option('services_background_color')) echo 'background-color: '.cs_get_option('services_background_color').'; opacity: initial;';  ?>"><?php the_title(); ?></div>	
+								</div>
 							</a>
-							<span class="cover" style="background-image: url(<?php echo has_post_thumbnail() ? get_the_post_thumbnail_url( get_the_ID(), 'services-home' ) : get_template_directory_uri().'/img/box-1.2.jpg'; ?>);"></span>
 						</div>
-				<?php endwhile;
-			endif; ?>
+					<?php $i++; endwhile; 
+				endif; ?>
+			</div>
 		</div>
-	</div>	
+	</div>
 	
 	<section id="map-canvas" class="map">
 		<script type="text/javascript">
