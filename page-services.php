@@ -24,7 +24,7 @@ get_header(); ?>
 						<div class="col-sm-4">
 							<a href="<?php the_permalink(); ?>" class="caption_link">
 								<div class="service_item_archive">
-									<img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'single-service'); ?>" alt="service">
+									<img src="<?php the_post_thumbnail_url( 'single-service' ); ?>" alt="service">
 									<div class="service_caption_title" style="<?php if(cs_get_option('services_title_color')) echo 'color: '.cs_get_option('services_title_color').'; '; if(cs_get_option('services_background_color')) echo 'background-color: '.cs_get_option('services_background_color').'; opacity: initial;';  ?>"><?php the_title(); ?></div>	
 								</div>
 							</a>

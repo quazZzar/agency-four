@@ -1013,19 +1013,19 @@ article.team-member .staff_email i{
 
 @media screen and (min-width: 768px) {
 	article.team-member{
-		min-height: 330px;
+		min-height: 351px;
 	}
 }
 
 @media screen and (min-width: 992px) {
 	article.team-member{
-		min-height: 417px;
+		min-height: 445px;
 	}
 }
 
 @media screen and (min-width: 1200px) {
 	article.team-member{
-		min-height: 485px;
+		min-height: 520px;
 	}
 }
 
@@ -1044,4 +1044,12 @@ article.team-member .staff_email i{
 	article.team-member .staff_email i {
 		font-size: 14px;
 	}
+	.about_staff_btn a{
+		font-size: 11px;
+	}
+}
+
+
+.sidebar-bellow-content{
+	margin: 30px 0;
 }

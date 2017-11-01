@@ -8,19 +8,6 @@ get_header(); ?>
 						the_content(); 
 					endwhile;
 				endif; ?>
-				<form class="upto-email-utility hidden-xs">
-					<fieldset>
-						<span class="label">
-							<label for="subscription-email">Get weekly updates:</label>
-						</span>
-						<span class="input">
-							<input type="email" id="page-subscription-email" placeholder="Email Address">
-						</span>
-						<span class="form-button">
-							<button id="submbtn" type="submit">Subscribe</button>
-						</span>
-					</fieldset>
-				</form>
 			</div>
 		
 		</div>

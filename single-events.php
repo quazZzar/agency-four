@@ -71,15 +71,13 @@
 								</div>	
 							</section>
 						</div>
-						<div class="col-md-4">
-							<div id="subPageRight" class="event_has_sidebar">
-								<div id="offerSubPage">
-									<?php if (is_active_sidebar( 'event-sidebar' )):
-										dynamic_sidebar('event-sidebar');
-									endif;  ?>
+						<?php if (is_active_sidebar( 'event-sidebar' )): ?>
+							<div class="col-md-4">
+								<div class="subPageRight event_has_sidebar">
+									<?php dynamic_sidebar('event-sidebar'); ?>
 								</div>
 							</div>
-						</div>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

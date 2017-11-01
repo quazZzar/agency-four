@@ -63,7 +63,7 @@ $options[]    = array(
 				array(
 					'id'    => 'event_image',
 					'type'  => 'upload',
-					'title' => 'Event Small Image',
+					'title' => 'Event Header Image',
 				),
 				array(
 					'id'    => 'event_datetime',

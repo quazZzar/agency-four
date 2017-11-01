@@ -147,7 +147,7 @@ function reg_sideb(){
 		);
 		register_sidebar(
 			array(
-				'name'           => esc_html__('Contact Form Sidebar', 'agency-one'),
+				'name'           => esc_html__('Contact Form Bellow Content Sidebar', 'agency-one'),
 				'id'             => 'contact-form-sidebar',
 				'description'    => esc_html__('This sidebar is shown bellow the page content on the contact page', 'agencyfour'),
 				'before_widget'  => '<div class="widget %2$s">',
